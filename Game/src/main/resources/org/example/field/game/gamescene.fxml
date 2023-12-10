@@ -38,5 +38,10 @@
         <Line endX="129.02757263183594" endY="-0.290477454662323" layoutX="-89.0" layoutY="22.0" rotate="93.0" startX="91.1222915649414" startY="1.9441001415252686" style="-fx-stroke: #000000;" />
       </children>
     </Pane>
+    <Pane fx:id="rope2" layoutX="607.0" layoutY="75.0" prefHeight="66.0" prefWidth="49.0">
+      <children>
+        <Ellipse fill="TRANSPARENT" layoutX="23.0" layoutY="31.0" radiusX="10.0" radiusY="20.0" stroke="BLACK" strokeType="INSIDE" style="-fx-stroke: #000000;" />
+      </children>
+    </Pane>
   </children>
 </Pane>
