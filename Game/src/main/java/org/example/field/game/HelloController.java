@@ -49,14 +49,15 @@ public class HelloController {
 
     public void onClick(ActionEvent event) {
         String letter = ((Button) event.getSource()).getText();
-        System.out.println(letter);
-        System.out.println(myWord);
         ((Button) event.getSource()).setDisable(true);
-        System.out.println(myLetters.contains(letter));
         if (myLetters.contains(letter)) {
-            correct++;
-            int letterIndex = myLetters.indexOf(letter);
-            answer.set(letterIndex * 2, letter);
+            for (int i = 0; i < myLetters.size(); i++) {
+                String l = myLetters.get(i);
+                if (l.equals(letter)) {
+                    correct++;
+                    answer.set(i * 2, letter);
+                }
+            }
             String res = String.join("", answer);
             text.setText(res);
             if (correct == myWord.length()) {
@@ -81,9 +82,14 @@ public class HelloController {
             }
         }
     }
-    public void newGame(){
+
+    public void newGame() {
+        for (int i = 0; i < 33; i++) {
+            buttons.getChildren().get(i).setDisable(false);
+        }
         initialize();
     }
+
     public void initialize() {
         base1.setVisible(false);
         base2.setVisible(false);
