@@ -19,7 +19,7 @@ public class Words {
         }
     }
     public String getWord(){
-        return words.get(0);
+        return words.get(new Random().nextInt(words.size()));
     }
 
     public static void main(String[] args) throws FileNotFoundException {

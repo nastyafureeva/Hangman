@@ -6,7 +6,7 @@
 
 <Pane prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #9f7a5c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.field.game.Firstscene">
    <children>
-      <Label alignment="CENTER" layoutX="280.0" layoutY="95.0" prefHeight="72.0" prefWidth="187.0" text="Висельница" textAlignment="RIGHT">
+      <Label alignment="CENTER" layoutX="280.0" layoutY="95.0" prefHeight="72.0" prefWidth="187.0" text="Виселица" textAlignment="RIGHT">
          <font>
             <Font name="System Italic" size="30.0" />
          </font>
