@@ -47,8 +47,42 @@ public class HelloController {
     public HelloController() throws FileNotFoundException {
     }
 
-    public void onClick(ActionEvent event){
-
+    public void onClick(ActionEvent event) {
+        String letter = ((Button) event.getSource()).getText();
+        System.out.println(letter);
+        System.out.println(myWord);
+        ((Button) event.getSource()).setDisable(true);
+        System.out.println(myLetters.contains(letter));
+        if (myLetters.contains(letter)) {
+            correct++;
+            int letterIndex = myLetters.indexOf(letter);
+            answer.set(letterIndex * 2, letter);
+            String res = String.join("", answer);
+            text.setText(res);
+            if (correct == myWord.length()) {
+                winStatus.setText("Победа!");
+                buttons.setDisable(true);
+            }
+        } else {
+            mistakes++;
+            if (mistakes == 1) base1.setVisible(true);
+            else if (mistakes == 2) base2.setVisible(true);
+            else if (mistakes == 3) base3.setVisible(true);
+            else if (mistakes == 4) pole.setVisible(true);
+            else if (mistakes == 5) rod.setVisible(true);
+            else if (mistakes == 6) rope1.setVisible(true);
+            else if (mistakes == 7) rope2.setVisible(true);
+            else if (mistakes == 8) {
+                rope2.setVisible(false);
+                man.setVisible(true);
+                winStatus.setText("Ты проиграл!");
+                realWord.setText("Загаданное слово: " + myWord);
+                buttons.setDisable(true);
+            }
+        }
+    }
+    public void newGame(){
+        initialize();
     }
     public void initialize() {
         base1.setVisible(false);
@@ -59,9 +93,23 @@ public class HelloController {
         rope1.setVisible(false);
         rope2.setVisible(false);
         man.setVisible(false);
-        mistakes=0;
-        correct=0;
-
+        mistakes = 0;
+        correct = 0;
+        myWord = word.getWord();
+        myLetters = Arrays.asList(myWord.split(""));
+        answer = Arrays.asList(new String[myLetters.size() * 2]);
+        for (int i = 0; i < myLetters.size() * 2; i++) {
+            if (i % 2 == 0) {
+                answer.set(i, "_");
+            } else {
+                answer.set(i, " ");
+            }
+        }
+        String res = String.join("", answer);
+        text.setText(res);
+        winStatus.setText("");
+        realWord.setText("");
+        buttons.setDisable(false);
     }
 
 }
