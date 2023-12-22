@@ -1,4 +1,4 @@
-package org.example.field.game;
+package client;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +15,9 @@ public class Firstscene {
     private ActionEvent event;
 
 
+
     public void switchToCreateRoom(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("gamescene.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/client/view/gamescene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

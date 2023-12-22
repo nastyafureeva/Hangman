@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #9f7a5c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.field.game.Firstscene">
+<Pane prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #9f7a5c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Firstscene">
    <children>
       <Label alignment="CENTER" layoutX="280.0" layoutY="95.0" prefHeight="72.0" prefWidth="187.0" text="Виселица" textAlignment="RIGHT">
          <font>
@@ -13,5 +13,6 @@
       </Label>
       <Button layoutX="112.0" layoutY="253.0" mnemonicParsing="false" onAction="#switchToCreateRoom" prefHeight="65.0" prefWidth="187.0" text="1 игрок" />
        <Button layoutX="428.0" layoutY="253.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="187.0" text="2 игрока" />
+      <Label layoutX="246.0" layoutY="181.0" text="Добро пожаловать! Подключись к серверу, как:" />
    </children>
 </Pane>

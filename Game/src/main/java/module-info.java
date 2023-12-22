@@ -1,8 +1,11 @@
-module org.example.field.game {
+module java{
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens org.example.field.game to javafx.fxml;
-    exports org.example.field.game;
+
+    exports client;
+    opens client to javafx.fxml;
+    exports server;
+    opens server to javafx.fxml;
 }

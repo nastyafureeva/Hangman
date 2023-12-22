@@ -1,4 +1,4 @@
-package org.example.field.game;
+package server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ public class Words {
 
     public Words() throws FileNotFoundException {
         words = new ArrayList<>();
-        Scanner sc = new Scanner(new File("/Users/anastasiafureeva/ОРИС/Fieldofmiracles/Game/src/main/java/org/example/field/game/Words.txt"));
+        Scanner sc = new Scanner(new File("/Users/anastasiafureeva/ОРИС/Fieldofmiracles/Game/src/main/java/server/Words.txt"));
         while (sc.hasNextLine()) {
             words.add(sc.nextLine());
         }
