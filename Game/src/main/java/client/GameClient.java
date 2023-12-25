@@ -25,6 +25,7 @@ public class GameClient extends Thread {
         }
     }
     public void run() {
+        System.out.println("2451");
         try {
             while (true) {
                 this.messageRes = this.br.readLine();

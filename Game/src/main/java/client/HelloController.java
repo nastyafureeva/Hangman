@@ -38,6 +38,7 @@ public class HelloController {
 
     public HelloController(GameClient gameClient) {
         this.gameClient = gameClient;
+        System.out.println("123");
 
     }
 
@@ -81,9 +82,10 @@ public class HelloController {
     }
 
     public void initialize() {
-        //HelloController helloController = new HelloController(new GameClient());
-        this.gameClient = new GameClient();
-      this.gameClient.start();
+        HelloController helloController = new HelloController(new GameClient());
+        System.out.println("foslf;");
+       // this.gameClient = new GameClient();
+       helloController.gameClient.start();
         gameClient.sendMessageToServerAsync("myWord");
         base1.setVisible(false);
         base2.setVisible(false);

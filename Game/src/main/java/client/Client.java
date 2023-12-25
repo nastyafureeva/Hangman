@@ -19,6 +19,7 @@ public class Client extends Application {
 //        Scene scene = new Scene(root);
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
+        System.out.println("11");
         FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("/client/view/firstscene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hangman");
