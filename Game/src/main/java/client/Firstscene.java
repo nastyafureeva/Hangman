@@ -12,13 +12,11 @@ import java.io.IOException;
 public class Firstscene {
     Parent root;
     Stage stage;
-    private ActionEvent event;
-
 
 
     public void switchToCreateRoom(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/client/view/gamescene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/client/view/firstscene.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
 

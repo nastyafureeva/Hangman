@@ -35,8 +35,11 @@ public class ServerConnection extends Thread {
         try {
             while (true) {
                 String clientMessage = this.br.readLine();
-                System.out.println(clientMessage);
-                this.send("Response from server");
+                // gameModel.buttonLetter(clientMessage);
+               // System.out.println(gameModel.buttonLetter(clientMessage));
+                String s =processClientMessage(clientMessage);
+                System.out.println(s);
+                this.send(s);
             }
 
         } catch (IOException var3) {
@@ -55,16 +58,14 @@ public class ServerConnection extends Thread {
     }
 
 
-    private void processClientMessage(String message) throws IOException {
-        if (message == "meWord") {
-            try {
-                bw.write(gameModel.myWord);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+    private String processClientMessage(String message) throws IOException {
+        if (message.equals("myWord")) {
+            return gameModel.res + ":clear";
+            } else return gameModel.buttonLetter(message);
 
+
+
+    }
 
 
 }

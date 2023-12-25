@@ -5,13 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import server.Words;
-
-import java.io.*;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.List;
 
 public class HelloController {
     @FXML
@@ -41,79 +34,43 @@ public class HelloController {
     @FXML
     private Text score;
 
-
-//    private int mistakes;
-//    private int correct;
-//    private Words word = new Words();
-//    private String myWord;
-//    private List<String> myLetters;
-//    private List<String> answer;
     GameClient gameClient;
 
-    public HelloController() throws FileNotFoundException {
+    public HelloController(GameClient gameClient) {
+        this.gameClient = gameClient;
 
     }
 
-    public void onClick(ActionEvent event) {
+
+        public void onClick(ActionEvent event) {
         String letter = ((Button) event.getSource()).getText();
         ((Button) event.getSource()).setDisable(true);
-        gameClient.sendMessageToServer(letter);
-
-//        if (myLetters.contains(letter)) {
-//            for (int i = 0; i < myLetters.size(); i++) {
-//                String l = myLetters.get(i);
-//                if (l.equals(letter)) {
-//                    correct++;
-//                    answer.set(i * 2, letter);
-//                }
-//            }
-//            String res = String.join("", answer);
-//            text.setText(res);
-//            if (correct == myWord.length()) {
-//                winStatus.setText("Победа!");
-//                buttons.setDisable(true);
-//            }
-//        } else {
-//            mistakes++;
-//            score.setText("Количество очков: " + (100 - 12.5 * mistakes));
-//            if (mistakes == 1) base1.setVisible(true);
-//            else if (mistakes == 2) base2.setVisible(true);
-//            else if (mistakes == 3) base3.setVisible(true);
-//            else if (mistakes == 4) pole.setVisible(true);
-//            else if (mistakes == 5) rod.setVisible(true);
-//            else if (mistakes == 6) rope1.setVisible(true);
-//            else if (mistakes == 7) rope2.setVisible(true);
-//            else if (mistakes == 8) {
-//                rope2.setVisible(false);
-//                man.setVisible(true);
-//                winStatus.setText("Ты проиграл!");
-//                realWord.setText("Загаданное слово: " + myWord);
-//                buttons.setDisable(true);
-//            }
-//        } gameClient.messageRes.split(":")
-        System.out.println(gameClient.messageRes);
-        String[] info = new String[] {"ererw","base1"};
+        gameClient.sendMessageToServerAsync(letter);
+       // System.out.println(gameClient.messageRes);
+    }
+    public void ksld(String message){
+        String[] info = message.split(":");
         text.setText(info[0]);
+        System.out.println("rjvfylfk" + info[1]);
         if (info[1] == "win") {
             winStatus.setText("Победа!");
             buttons.setDisable(true);
-        } else if (info[1] == "base1") base1.setVisible(true);
-        else if (info[1] == "base2") base2.setVisible(true);
-        else if (info[1] == "base3") base3.setVisible(true);
-        else if (info[1] == "pole") pole.setVisible(true);
-        else if (info[1] == "rod") rod.setVisible(true);
-        else if (info[1] == "rope1") rope1.setVisible(true);
-        else if (info[1] == "rope2") rope2.setVisible(true);
-        else if (info[1] == "lost") {
-               rope2.setVisible(false);
-               man.setVisible(true);
-               winStatus.setText("Ты проиграл!");
-               realWord.setText("Загаданное слово: " + info[2]);
-               buttons.setDisable(true);
+        } else if (info[1].equals("base1")) base1.setVisible(true);
+        else if (info[1].equals("base2")) base2.setVisible(true);
+        else if (info[1].equals("base3")) base3.setVisible(true);
+        else if (info[1].equals("pole")) pole.setVisible(true);
+        else if (info[1].equals("rod")) rod.setVisible(true);
+        else if (info[1].equals("rope1")) rope1.setVisible(true);
+        else if (info[1].equals("rope2")) rope2.setVisible(true);
+        else if (info[1].equals("lost")) {
+            rope2.setVisible(false);
+            man.setVisible(true);
+            winStatus.setText("Ты проиграл!");
+            realWord.setText("Загаданное слово: " + info[2]);
+            buttons.setDisable(true);
 
         }
-
-
+        text.setText(info[0]);
     }
 
     public void newGame() {
@@ -124,8 +81,10 @@ public class HelloController {
     }
 
     public void initialize() {
+        //HelloController helloController = new HelloController(new GameClient());
         this.gameClient = new GameClient();
-        gameClient.start();;
+      this.gameClient.start();
+        gameClient.sendMessageToServerAsync("myWord");
         base1.setVisible(false);
         base2.setVisible(false);
         base3.setVisible(false);
@@ -134,20 +93,7 @@ public class HelloController {
         rope1.setVisible(false);
         rope2.setVisible(false);
         man.setVisible(false);
-        gameClient.sendMessageToServer("myWord");
-//        mistakes = 0;
-//        correct = 0;
-//        myWord = word.getWord();
-//        myLetters = Arrays.asList(myWord.split(""));
-//        answer = Arrays.asList(new String[myLetters.size() * 2]);
-//        for (int i = 0; i < myLetters.size() * 2; i++) {
-//            if (i % 2 == 0) {
-//                answer.set(i, "_");
-//            } else {
-//                answer.set(i, " ");
-//            }
-//        }
-//        String res = String.join("", answer);
+        System.out.println(gameClient.messageRes);
         text.setText(gameClient.messageRes);
         winStatus.setText("");
         realWord.setText("");
