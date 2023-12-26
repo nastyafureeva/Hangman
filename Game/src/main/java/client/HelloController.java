@@ -38,10 +38,6 @@ public class HelloController {
     GameClient gameClient;
 
     public HelloController() {
-        gameClient = new GameClient();
-        gameClient.start();
-        gameClient.addMessageReceivedListener(this::ch);
-        // Остальной код инициализации
     }
 
 
@@ -51,7 +47,7 @@ public class HelloController {
 
         this.gameClient.sendMessageToServerAsync(letter);
         gameClient.addMessageReceivedListener(this::ch);
-        ch(gameClient.messageRes);
+      ch(gameClient.messageRes);
         // System.out.println(gameClient.messageRes);
     }
 

@@ -12,13 +12,15 @@ public class ServerConnection extends Thread {
     private BufferedReader br;
     private BufferedWriter bw;
     private GameModel gameModel;
+    Server server;
 
-    public ServerConnection(Socket socket) {
+    public ServerConnection(Socket socket, Server server) {
         try {
             this.socket = socket;
             this.br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.bw = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
             this.gameModel = new GameModel();
+            this.server = server;
         } catch (IOException var4) {
             throw new RuntimeException(var4);
         }
@@ -55,13 +57,24 @@ public class ServerConnection extends Thread {
 
 
     private String processClientMessage(String message) throws IOException {
-        if (message.equals("myWord")) {
+        String[]info = message.split(":");
+        if (info[0].equals("myWord")) {
             return gameModel.res + ":clear";
-        } else return gameModel.buttonLetter(message);
-
-
-
+        } else if (info[0].equals("roomname")) {
+          server.rooms.add(new Room(this,null,info[1]));
+          return server.getNamesOfRooms();
+        } else if (info[0].equals("getrooms")) {
+            return server.getNamesOfRooms();
+        }
+            return gameModel.buttonLetter(message);
     }
-
+    public void sendToServer(String message) {
+        try {
+            this.bw.write(message + System.lineSeparator());
+            this.bw.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

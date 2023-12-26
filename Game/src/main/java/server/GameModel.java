@@ -2,10 +2,13 @@ package server;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class GameModel {
+    Map<Integer, Room> rooms = new HashMap<>();
     private int mistakes;
     private int correct;
     private Words word = new Words();
@@ -68,4 +71,5 @@ public class GameModel {
         }
         return messageLetter;
     }
+
 }

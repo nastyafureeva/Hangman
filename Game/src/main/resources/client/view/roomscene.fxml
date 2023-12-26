@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #9f7a5c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.RoomController">
+    <children>
+        <Label alignment="CENTER" layoutX="223.0" layoutY="153.0" prefHeight="72.0" prefWidth="300.0" text="Доступные комнаты:" textAlignment="RIGHT">
+            <font>
+                <Font name="System Italic" size="30.0" />
+            </font>
+        </Label>
+        <Button layoutX="280.0" layoutY="54.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="65.0" prefWidth="187.0" text="Создать комнату" />
+      <ListView fx:id="roomListView" layoutX="274.0" layoutY="225.0" style="-fx-background-color: #cea988;" prefHeight="250.0" prefWidth="200.0" />
+
+    </children>
+</Pane>

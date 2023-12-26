@@ -1,9 +1,5 @@
 package client;
 
-import client.view.OnMessageReceivedListener;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -21,7 +17,7 @@ public class GameClient extends Thread {
 
     public GameClient() {
         try {
-            this.socket = new Socket("localhost", 6666);
+            this.socket = new Socket("localhost", 8000);
             this.br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.bw = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
         } catch (IOException var2) {

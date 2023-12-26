@@ -14,11 +14,19 @@ public class Firstscene {
     Stage stage;
 
 
-    public void switchToCreateRoom(ActionEvent event) throws IOException {
+    public void switchToOne(ActionEvent event) throws IOException {
         System.out.println("1");
          root = FXMLLoader.load(getClass().getResource("/client/view/gamescene.fxml"));
          stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
+    public void switchToCreateRoom(ActionEvent event) throws IOException {
+        System.out.println("1");
+        root = FXMLLoader.load(getClass().getResource("/client/view/roomscene.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 }

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Client extends Application {
-//    private static Stage stage;
+    //    private static Stage stage;
     @Override
     public void start(Stage stage) throws IOException {
 //        System.out.println(this.getClass().getResource("/client/view/firstscene.fxml"));
