@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package server;
 
 import java.io.BufferedReader;
@@ -36,9 +31,10 @@ public class ServerConnection extends Thread {
             while (true) {
                 String clientMessage = this.br.readLine();
                 // gameModel.buttonLetter(clientMessage);
-               // System.out.println(gameModel.buttonLetter(clientMessage));
+                // System.out.println(gameModel.buttonLetter(clientMessage));
                 String s =processClientMessage(clientMessage);
-                System.out.println(s);
+                System.out.println("got" + clientMessage);
+                System.out.println("Sending- "+s);
                 this.send(s);
             }
 
@@ -61,7 +57,7 @@ public class ServerConnection extends Thread {
     private String processClientMessage(String message) throws IOException {
         if (message.equals("myWord")) {
             return gameModel.res + ":clear";
-            } else return gameModel.buttonLetter(message);
+        } else return gameModel.buttonLetter(message);
 
 
 

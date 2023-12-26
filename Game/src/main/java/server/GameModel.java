@@ -47,28 +47,23 @@ public class GameModel {
 //           text.setText(res);
             System.out.println(res);
             if (correct == myWord.length()) {
-             return  res + ":win";
+                return res + ":win:" + myWord + ":" + mistakes;
 
             }
-            return res + ":clear";
+            return res + ":clear:" + myWord + ":" + mistakes;
         } else {
             mistakes++;
-            System.out.println(mistakes);
+            System.out.println("mistakes" + mistakes);
             // score.setText("Количество очков: " + (100 - 12.5 * mistakes));
-            if (mistakes == 1) messageLetter = res + ":base1";
-            else if (mistakes == 2) messageLetter = res + ":base2";
-            else if (mistakes == 3) messageLetter = res + ":base3";
-            else if (mistakes == 4) messageLetter = res + ":pole";
-            else if (mistakes == 5) messageLetter = res + ":rod";
-            else if (mistakes == 6) messageLetter = res + ":rope1";
-            else if (mistakes == 7) messageLetter = res + ":rope2";
+            if (mistakes == 1) messageLetter = res + ":base1:" + myWord + ":" + mistakes;
+            else if (mistakes == 2) messageLetter = res + ":base2:" + myWord + ":" + mistakes;
+            else if (mistakes == 3) messageLetter = res + ":base3:" + myWord + ":" + mistakes;
+            else if (mistakes == 4) messageLetter = res + ":pole:" + myWord + ":" + mistakes;
+            else if (mistakes == 5) messageLetter = res + ":rod:" + myWord + ":" + mistakes;
+            else if (mistakes == 6) messageLetter = res + ":rope1:" + myWord + ":" + mistakes;
+            else if (mistakes == 7) messageLetter = res + ":rope2:" + myWord + ":" + mistakes;
             else if (mistakes == 8) {
-                messageLetter = res + ":lost:" + myWord;
-//               rope2.setVisible(false);
-//               man.setVisible(true);
-//               winStatus.setText("Ты проиграл!");
-//               realWord.setText("Загаданное слово: " + myWord);
-//               buttons.setDisable(true);
+                messageLetter = res + ":lost:" + myWord + ":" + mistakes;
             }
         }
         return messageLetter;

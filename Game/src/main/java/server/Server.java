@@ -42,19 +42,9 @@ public class Server {
 
     }
 
-//    public void sendMessage(String message) {
-//        Iterator var2 = this.serverConnections.iterator();
-//
-//        while(var2.hasNext()) {
-//            ServerConnection serverConnection = (ServerConnection)var2.next();
-//            serverConnection.send(message);
-//        }
-//
-//    }
 
     public static void main(String[] args) {
         Server server = new Server();
         server.run();
     }
 }
-
