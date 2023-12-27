@@ -26,16 +26,16 @@ public class CreatingRoomController {
 
     public void create(ActionEvent actionEvent) {
         String roomName = roomNameTextField.getText();
-        gameClient.sendMessageToServerAsync("roomname:" + roomName);
+        roomController.gameClient.sendMessageToServerAsync("roomname:" + roomName);
         closeDialog();
         if (roomController != null) {
             roomController.fetchRoomsAndShow();
+//            roomController.delete();
         }
+
     }
 
     public void initialize() {
-        this.gameClient = new GameClient();
-        this.gameClient.start();
 
     }
 

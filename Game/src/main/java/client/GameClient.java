@@ -3,13 +3,13 @@ package client;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class GameClient extends Thread {
-    private List<OnMessageReceivedListener> listeners = new ArrayList<>();
-
-
+    public List<OnMessageReceivedListener> listeners = new ArrayList<>();
     private Socket socket;
     private BufferedReader br;
     private BufferedWriter bw;
@@ -22,6 +22,11 @@ public class GameClient extends Thread {
             this.bw = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
         } catch (IOException var2) {
             throw new RuntimeException(var2);
+        }
+    }
+    public void toStr(){
+        for (OnMessageReceivedListener t: listeners){
+            System.out.println(t.toString());
         }
     }
 
@@ -75,11 +80,24 @@ public class GameClient extends Thread {
         }
     }
     public void addMessageReceivedListener(OnMessageReceivedListener listener) {
+
         listeners.add(listener);
     }
 
-    public void removeMessageReceivedListener(OnMessageReceivedListener listener) {
-        listeners.remove(listener);
+    public void removeMessageReceivedListener(OnMessageReceivedListener listenerВ) {
+        System.out.println("before");
+toStr();
+//        listeners.remove(listener);
+        Iterator<OnMessageReceivedListener> iterator = listeners.iterator();
+        while (iterator.hasNext()) {
+            OnMessageReceivedListener listener = iterator.next();
+            if (listenerВ.equals(listener)) {
+                iterator.remove();
+            }
+        }
+        System.out.println("after");
+        toStr();
+
     }
 
     private void notifyListeners(String message) {

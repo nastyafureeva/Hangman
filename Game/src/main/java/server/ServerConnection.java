@@ -61,10 +61,12 @@ public class ServerConnection extends Thread {
         if (info[0].equals("myWord")) {
             return gameModel.res + ":clear";
         } else if (info[0].equals("roomname")) {
-          server.rooms.add(new Room(this,null,info[1]));
-          return server.getNamesOfRooms();
+          server.rooms.add(new Room(null,null,info[1]));
+          return "successed";
         } else if (info[0].equals("getrooms")) {
             return server.getNamesOfRooms();
+        } else if (info[0].equals("connectroom")){
+         return    server.connectToRoom(this,info[1]);
         }
             return gameModel.buttonLetter(message);
     }
