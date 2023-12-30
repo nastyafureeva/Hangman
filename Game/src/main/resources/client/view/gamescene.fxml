@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="mainPane" prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #79553d;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.HelloController">
+<Pane fx:id="mainPane" prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #79553d;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientController">
     <children>
         <Pane fx:id="base1" layoutX="498.0" layoutY="181.0" prefHeight="104.0" prefWidth="37.0">
             <children>

@@ -5,11 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class HelloController {
+public class ClientController {
     @FXML
     private Pane mainPane;
     @FXML
@@ -46,7 +46,7 @@ public class HelloController {
     final int c = 1;
 
 
-    public HelloController() {
+    public ClientController() {
     }
 
     public void getVisibleF() {
