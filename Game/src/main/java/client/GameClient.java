@@ -14,12 +14,15 @@ public class GameClient extends Thread {
     private BufferedReader br;
     private BufferedWriter bw;
     String messageRes;
+    int idRoom;
+    int idGamer;
 
     public GameClient() {
         try {
             this.socket = new Socket("localhost", 8000);
             this.br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.bw = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
+            idRoom = -1;
         } catch (IOException var2) {
             throw new RuntimeException(var2);
         }
@@ -40,6 +43,7 @@ public class GameClient extends Thread {
 //            throw new RuntimeException(e);
 //        }
 //    }
+
 
 
     public void sendMessageToServerAsync(String message) {
@@ -74,6 +78,7 @@ public class GameClient extends Thread {
 
         try {
             this.bw.write(message + System.lineSeparator());
+            System.out.println(message);
             this.bw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);

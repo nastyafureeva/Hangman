@@ -10,22 +10,27 @@ import java.io.IOException;
 
 public class Client extends Application {
     //    private static Stage stage;
+//    private GameClient gameClient;
+//    public Client() {
+//        this.gameClient = new GameClient();
+//        this.gameClient.start();
+//    }
+
     @Override
     public void start(Stage stage) throws IOException {
-//        System.out.println(this.getClass().getResource("/client/view/firstscene.fxml"));
-//
-//        stage = primaryStage;
-//        Parent root = (Parent)FXMLLoader.load(this.getClass().getResource("/client/view/firstscene.fxml"));
-//        Scene scene = new Scene(root);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-        System.out.println("Client");
+
+        System.out.println("Client..");
         FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("/client/view/firstscene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hangman");
         stage.setScene(scene);
         stage.show();
+//
+//        Firstscene firstscene= fxmlLoader.getController();
+//        firstscene.setGameClient(this.gameClient);
+
     }
+
 //    public static Stage getStage() {
 //        return stage;
 //    }

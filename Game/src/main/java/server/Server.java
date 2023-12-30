@@ -12,7 +12,8 @@ public class Server {
 
     private List<ServerConnection> serverConnections = new LinkedList();
     private ServerSocket serverSocket;
-    List<Room> rooms = new ArrayList<>();
+    Map<Integer, Room> rooms = new HashMap<>();
+    int count;
 
     public Server() {
         try {
@@ -20,6 +21,7 @@ public class Server {
         } catch (IOException var2) {
             throw new RuntimeException(var2);
         }
+        count = -1;
     }
 
     public void run() {
@@ -44,25 +46,33 @@ public class Server {
 
     public String getNamesOfRooms() {
         String message = "";
-        for (Room s : rooms) {
-            message = message + s.name + ":";
+        for (int i = 0; i <= count; i++) {
+            String s = rooms.get(i).name;
+            message = message + s + ":";
         }
         return message;
     }
 
     public String connectToRoom(ServerConnection serverConnection, String name) {
-        for (Room r : rooms) {
-            if (r.name.equals(name)) {
-                if (r.gamer1 == null) {
-                    r.gamer1 = serverConnection;
-                    return "connected1";
-                } else if (r.gamer2 == null) {
-                    r.gamer2 = serverConnection;
-                    return "connected2";
-                }
-            }
+        int i = this.getIDofRoom(name);
+        if (rooms.get(i).gamer1 == null) {
+            rooms.get(i).gamer1 = serverConnection;
+            return "connected1:" + i;
+        } else if (rooms.get(i).gamer2 == null) {
+            rooms.get(i).gamer2 = serverConnection;
+            return "connected2:" + i;
         }
         return "notconnected";
+    }
+
+    public int getIDofRoom(String name) {
+        for (int i = 0; i <= count; i++) {
+            String s = rooms.get(i).name;
+            if (s.equals(name)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static void main(String[] args) {

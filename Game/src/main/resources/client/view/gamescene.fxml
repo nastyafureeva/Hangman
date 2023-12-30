@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #79553d;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.HelloController">
+<Pane fx:id="mainPane" prefHeight="532.0" prefWidth="746.0" style="-fx-background-color: #79553d;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.HelloController">
     <children>
         <Pane fx:id="base1" layoutX="498.0" layoutY="181.0" prefHeight="104.0" prefWidth="37.0">
             <children>
@@ -243,6 +243,16 @@
             </font>
         </Text>
         <Text fx:id="realWord" fill="#40b9ff" layoutX="378.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="359.0">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Text>
+<!--        <Label fx:id="motion" layoutX="246.0" layoutY="181.0" text="ТВОЙ ХОД" >-->
+<!--        <font>-->
+<!--            <Font size="30.0" />-->
+<!--        </font>-->
+<!--        </Label>-->
+        <Text fx:id="motion" fill="#ff1b34" layoutX="159.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ТВОЙ ХОД" textAlignment="CENTER" wrappingWidth="359.0">
             <font>
                 <Font size="30.0" />
             </font>

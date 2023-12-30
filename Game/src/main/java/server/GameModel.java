@@ -11,11 +11,11 @@ public class GameModel {
     Map<Integer, Room> rooms = new HashMap<>();
     private int mistakes;
     private int correct;
-    private Words word = new Words();
-    String myWord;
+    protected Words word = new Words();
+    public String myWord;
     private List<String> myLetters;
-    List<String> answer;
-    String res;
+    private List<String> answer;
+    public String res;
 
     public GameModel() throws FileNotFoundException {
         mistakes = 0;
@@ -46,8 +46,6 @@ public class GameModel {
                 }
             }
             res = String.join("", answer);
-            System.out.println(res);
-//           text.setText(res);
             System.out.println(res);
             if (correct == myWord.length()) {
                 return res + ":win:" + myWord + ":" + mistakes;

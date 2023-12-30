@@ -27,8 +27,23 @@ public class RoomController {
     @FXML
     private Pane mainPane;
     private Stage dialogStage;
+    private boolean isInitialized = false;
+
 
     GameClient gameClient;
+    OnMessageReceivedListener roomListener;
+    OnMessageReceivedListener roomListenerFor1;
+
+    public void setGameClient(GameClient gameClient) {
+        this.gameClient = gameClient;  // Передача gameClient извне
+
+        if (!isInitialized) {
+            initialize();  // Явный вызов initialize, если контроллер еще не был инициализирован
+            isInitialized = true;
+        }
+
+    }
+
 
     public RoomController() throws IOException {
     }
@@ -66,14 +81,15 @@ public class RoomController {
         this.gameClient = new GameClient();
         this.gameClient.start();
         this.gameClient.sendMessageToServerAsync("getrooms:");
-        this.gameClient.addMessageReceivedListener(this::showRooms);
-        this.gameClient.removeMessageReceivedListener(this::showRooms);
+        roomListener = this::showRooms;
+        this.gameClient.addMessageReceivedListener(roomListener);
+//        this.gameClient.removeMessageReceivedListener(t);
         System.out.println(this.gameClient.listeners);
         this.dialogStage = new Stage();
         roomListView.setOnMouseClicked(event -> {
             String selectedRoom = roomListView.getSelectionModel().getSelectedItem();
             if (selectedRoom != null) {
-             connectToRoom(selectedRoom);
+                connectToRoom(selectedRoom);
             }
         });
 
@@ -83,20 +99,30 @@ public class RoomController {
     public void connectToRoom(String roomName) {
         this.gameClient.sendMessageToServerAsync("connectroom:" + roomName);
         System.out.println("tbid" + gameClient.messageRes);
-        this.gameClient.addMessageReceivedListener(this::readerConnecting);
+        this.gameClient.removeMessageReceivedListener(roomListener);
+        this.roomListener = this::readerConnecting;
+        this.gameClient.addMessageReceivedListener(roomListener);
+//        this.gameClient.removeMessageReceivedListener(roomListener);
 
     }
 
     private void readerConnecting(String message) {
-        if (message.equals("connected1")) {
+        String[] info = message.split(":");
+        this.gameClient.idRoom = Integer.parseInt(info[1]);
+        if (message.equals("connected1:" + this.gameClient.idRoom)) {
+            this.gameClient.idGamer = 1;
+            Platform.runLater(() -> {
+                switchToGameWaiting();
+            });
+        } else if (message.equals("connected2:" + this.gameClient.idRoom)) {
+            this.gameClient.idGamer = 2;
             Platform.runLater(() -> {
                 switchToGameScene2();
             });
-
         }
     }
 
-    private void switchToGameScene2() {
+    private void switchToGameWaiting() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client/view/waiting.fxml"));
             Parent root = fxmlLoader.load();
@@ -106,10 +132,51 @@ public class RoomController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        gameClient.sendMessageToServerAsync("joingame1:" + this.gameClient.idRoom);
+        this.roomListenerFor1 = this::switchToScene2FromGamer1;
+        gameClient.addMessageReceivedListener(roomListenerFor1);
+//            String [] info = message.split(":");
+//            if (info[0].equals("connectedtoscene2")) {
+//                Stage stage = (Stage) roomListView.getScene().getWindow();
+//                dialogStage.close();
+//                System.out.println("im here");
+//                switchToGameScene2();
+//            }
+//        });
 
     }
 
+    public void switchToScene2FromGamer1(String message) {
+        String[] info = message.split(":");
+        if (info[0].equals("connectedtoscene2")) {
+            System.out.println("im here");
+            Platform.runLater(() -> {
+                Stage stage = (Stage) dialogStage.getScene().getWindow();
+                stage.close();
+                System.out.println("im here");
+                switchToGameScene2();
+            });
+        }
+
+    }
+
+    private void switchToGameScene2() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client/view/gamescene.fxml"));
+            Parent root = fxmlLoader.load();
+            HelloController helloController = fxmlLoader.getController();
+            gameClient.removeMessageReceivedListener(roomListener);
+            helloController.setGameClient(gameClient);
+            mainPane.getChildren().setAll(root);
+            if (roomListenerFor1 != null){
+                gameClient.removeMessageReceivedListener(roomListenerFor1);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void showRooms(String message) {
         System.out.println("prishlo" + message);
