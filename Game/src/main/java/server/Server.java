@@ -13,6 +13,7 @@ public class Server {
     private List<ServerConnection> serverConnections = new LinkedList();
     private ServerSocket serverSocket;
     Map<Integer, Room> rooms = new HashMap<>();
+
     int count;
 
     public Server() {

@@ -43,6 +43,7 @@ public class HelloController {
 
     GameClient gameClient;
     OnMessageReceivedListener helloListener;
+    final int c = 1;
 
 
     public HelloController() {
@@ -98,7 +99,7 @@ public class HelloController {
                 text.setText(info[1]);
                 score.setText("Количество очков: " + (100 - Integer.parseInt(info[info.length - 1]) * 12.5));
                 System.out.println("readerFor2 " + info[1]);
-                if (info[1].equals("win")) {
+                if (info[2].equals("win")) {
                     winStatus.setText("Победа!");
                     buttons.setDisable(true);
                 } else if (info[2].equals("base1")) {
@@ -106,12 +107,12 @@ public class HelloController {
                     getVisibleF();
                     gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     gameClient.sendMessageToServerAsync("" + gameClient.idGamer + ":waiting:" + gameClient.idRoom);
-                   // this.helloListener = this::gaming;
+                    // this.helloListener = this::gaming;
                     gameClient.addMessageReceivedListener(this::gaming);
                 } else if (info[2].equals("base2")) {
                     base2.setVisible(true);
                     getVisibleF();
-                   // gameClient.removeMessageReceivedListener(helloListener);
+                    // gameClient.removeMessageReceivedListener(helloListener);
                     gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     gameClient.sendMessageToServerAsync("" + gameClient.idGamer + ":waiting:" + gameClient.idRoom);
 //                    this.helloListener = this::gaming;
@@ -127,7 +128,7 @@ public class HelloController {
                 } else if (info[2].equals("pole")) {
                     pole.setVisible(true);
                     getVisibleF();
-                   // gameClient.removeMessageReceivedListener(helloListener);
+                    // gameClient.removeMessageReceivedListener(helloListener);
                     gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     gameClient.sendMessageToServerAsync("" + gameClient.idGamer + ":waiting:" + gameClient.idRoom);
 //                    this.helloListener = this::gaming;
@@ -135,7 +136,7 @@ public class HelloController {
                 } else if (info[2].equals("rod")) {
                     rod.setVisible(true);
                     getVisibleF();
-                 //   gameClient.removeMessageReceivedListener(helloListener);
+                    //   gameClient.removeMessageReceivedListener(helloListener);
                     gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     gameClient.sendMessageToServerAsync("" + gameClient.idGamer + ":waiting:" + gameClient.idRoom);
 //                    this.helloListener = this::gaming;
@@ -143,7 +144,7 @@ public class HelloController {
                 } else if (info[2].equals("rope1")) {
                     rope1.setVisible(true);
                     getVisibleF();
-                   // gameClient.removeMessageReceivedListener(helloListener);
+                    // gameClient.removeMessageReceivedListener(helloListener);
                     gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     gameClient.sendMessageToServerAsync("" + gameClient.idGamer + ":waiting:" + gameClient.idRoom);
 //                    this.helloListener = this::gaming;
@@ -151,7 +152,7 @@ public class HelloController {
                 } else if (info[2].equals("rope2")) {
                     rope2.setVisible(true);
                     getVisibleF();
-                  //  gameClient.removeMessageReceivedListener(helloListener);
+                    //  gameClient.removeMessageReceivedListener(helloListener);
                     gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     gameClient.sendMessageToServerAsync("" + gameClient.idGamer + ":waiting:" + gameClient.idRoom);
 //                    this.helloListener = this::gaming;
@@ -159,9 +160,9 @@ public class HelloController {
                 } else if (info[2].equals("lost")) {
                     rope2.setVisible(false);
                     man.setVisible(true);
-                    gameClient.sendMessageToServerAsync(wichOne() + ":YOULOSTTOO");
+                    gameClient.sendMessageToServerAsync(wichOne() + ":YOUGO");
                     winStatus.setText("Ты проиграл!");
-                    realWord.setText("Загаданное слово: " + info[3]);
+                    realWord.setText("Загаданное слово: " + info[info.length - 1]);
                     buttons.setDisable(true);
 
                 }
@@ -174,6 +175,18 @@ public class HelloController {
 
     public void updateScene(String message) {
         String[] info = message.split(":");
+        boolean flag;
+
+//        if (info[0].equals("lost")) {
+//            flag = true;
+//            String[] data = new String[info.length - 1];
+//            for (int i = 0; i <= info.length - 1; i++) {
+//                data[i] = info[i + 1];
+//            }
+//            info = data;
+//        } else {
+//            flag = false;
+//        }
         if (info[2].equals("openedLetter")) {
             for (int i = 2; i < info.length; i++) {
                 String buttonText = info[i];
@@ -188,7 +201,13 @@ public class HelloController {
                 }
             }
         }
-        int count = Integer.parseInt(info[info.length - 1]);
+
+        int count;
+//        if (flag) {
+//            count = Integer.parseInt(info[info.length - 2]);
+//        } else {
+            count = Integer.parseInt(info[info.length - 1]);
+        // }
         if (count == 1) base1.setVisible(true);
         if (count == 2) {
             base1.setVisible(true);
@@ -228,6 +247,21 @@ public class HelloController {
             rod.setVisible(true);
             rope2.setVisible(true);
         }
+        if (count == 8) {
+            base1.setVisible(true);
+            base2.setVisible(true);
+            base3.setVisible(true);
+            pole.setVisible(true);
+            rod.setVisible(true);
+            rope2.setVisible(true);
+            rope2.setVisible(false);
+            man.setVisible(true);
+            winStatus.setText("Ты проиграл!");
+            realWord.setText("Загаданное слово: " + info[3]);
+            buttons.setDisable(true);
+
+        }
+
         Platform.runLater(() -> {
             text.setText(info[1]);
         });
@@ -305,6 +339,7 @@ public class HelloController {
             gameClient = new GameClient();
             this.gameClient.start();
             this.gameClient.sendMessageToServerAsync("myWord");
+            motion.setVisible(false);
         } else {
             if (this.gameClient.idGamer == 2) {
                 this.gameClient.sendMessageToServerAsync("2:doWHOGO");

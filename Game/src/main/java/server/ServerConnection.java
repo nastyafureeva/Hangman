@@ -98,7 +98,12 @@ public class ServerConnection extends Thread {
             } else if (info[1].equals("YOUGO")) {
                 synchronized (ServerListener.sharedLock) {
                     System.out.println("УВЕДОМЛЯЮ");
-                    ServerListener.message = info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes();
+                    if (gameModelFor2.getMistakes().equals("8")) {
+                        ServerListener.message = "lost:"  + info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes() + ":" + server.rooms.get(gameModelFor2.idRoom).roomWord;
+
+                    } else {
+                        ServerListener.message = info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes();
+                    }
                     ServerListener.sharedLock.notify(); // Уведомление других потоков о изменении состояния
                 }
             } else if (info[1].equals("waiting")) {
@@ -117,14 +122,6 @@ public class ServerConnection extends Thread {
             } else if (info[1].equals("doWHOGO")) {
                 gameModelFor2.doWHOGO(this);
                 return server.rooms.get(gameModelFor2.idRoom).res + ":clear:" + server.rooms.get(gameModelFor2.idRoom).roomWord + ":" + server.rooms.get(gameModelFor2.idRoom).mistakes.get(this.socket);
-            } else if (info[1].equals("YOULOSTTOO")) {
-                synchronized (ServerListener.sharedLock) {
-                    System.out.println("УВЕДОМЛЯЮКОНЕЦ");
-                    ServerListener.message = info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes();
-                    ServerListener.sharedLock.notify(); // Уведомление других потоков о изменении состояния
-                }
-
-
             }
         }
         return "null";

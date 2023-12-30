@@ -257,6 +257,6 @@
                 <Font size="30.0" />
             </font>
         </Text>
-        <Button focusTraversable="false" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#newGame" style="-fx-background-color: #59D0F6#59D0F6;" text="New Game" />
+<!--        <Button focusTraversable="false" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#newGame" style="-fx-background-color: #59D0F6#59D0F6;" text="New Game" />-->
     </children>
 </Pane>
