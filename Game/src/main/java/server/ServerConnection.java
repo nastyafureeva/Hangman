@@ -96,24 +96,24 @@ public class ServerConnection extends Thread {
                 }
                 return "1";
             } else if (info[1].equals("YOUGO")) {
-                synchronized (ServerListener.sharedLock) {
+                synchronized (server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).sharedLock) {
                     System.out.println("УВЕДОМЛЯЮ");
                     if (gameModelFor2.getMistakes().equals("8")) {
-                        ServerListener.message = "lost:"  + info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes() + ":" + server.rooms.get(gameModelFor2.idRoom).roomWord;
+                        server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).message = "lost:"  + info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes() + ":" + server.rooms.get(gameModelFor2.idRoom).roomWord;
 
                     } else {
-                        ServerListener.message = info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes();
+                        server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).message = info[0] + ":" + server.rooms.get(gameModelFor2.idRoom).res + ":" + server.rooms.get(gameModelFor2.idRoom).openedLetter + ":" + gameModelFor2.getMistakes();
                     }
-                    ServerListener.sharedLock.notify(); // Уведомление других потоков о изменении состояния
+                    server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).sharedLock.notify(); // Уведомление других потоков о изменении состояния
                 }
             } else if (info[1].equals("waiting")) {
-                synchronized (ServerListener.sharedLock) {
+                synchronized (server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).sharedLock) {
                     System.out.println("waiting " + gameModelFor2.server.rooms.get(gameModelFor2.idRoom).whoGO.get(socket));
                     while (!gameModelFor2.server.rooms.get(gameModelFor2.idRoom).whoGO.get(socket)) {
                         System.out.println(gameModelFor2.server.rooms.get(gameModelFor2.idRoom).whoGO.get(socket));
                         try {
-                            ServerListener.sharedLock.wait();
-                            return ServerListener.message;
+                            server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).sharedLock.wait();
+                            return server.rooms.get(gameModelFor2.idRoom).serverListeners.get(gameModelFor2.idRoom).message;
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
                         }

@@ -2,8 +2,11 @@ package server;
 
 public class ServerListener {
 
-        public static final Object sharedLock = new Object();
-        public static String message = "";
-        public static final Object endLock = new Object();
+        public   Object sharedLock;
+        public  String message;
+        public ServerListener(){
+                this.sharedLock = new Object();
+                this.message = "";
+        }
 
 }
